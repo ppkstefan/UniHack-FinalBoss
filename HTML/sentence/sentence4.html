@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Sentence Exercise 4</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #c3e0e5; /* Baby Blue */
+            color: #274472; /* Dark Blue */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .back-button {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 15px 20px;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    background-color: #274472; /* Dark Blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+        .back-button:hover {
+            background-color: #41729f; /* Midnight Blue */
+        }
+        /* Title */
+        h1 {
+            text-align: center;
+            color: #274472; /* Dark Blue */
+            font-size: 50px;
+        }
+
+
+        /* Options Container */
+        #options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Draggable Words */
+        .draggable {
+            width: 100px;
+            padding: 10px;
+            background-color: #5885af; /* Blue Gray */
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .draggable:hover {
+            background-color: #41729f; /* Midnight Blue */
+            transform: translateY(-2px);
+        }
+
+        /* Exercise Container */
+        #exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sentence Styling */
+        .sentence {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        /* Blank Spaces for Drag and Drop */
+        .blank {
+            width: 100px;
+            height: 30px;
+            margin: 0 5px;
+            border: 2px dashed #5885af;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 30px;
+            transition: border-color 0.3s, background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .blank.correct {
+            border-color: green !important;
+            background-color: #e0f7e0;
+        }
+
+        .blank.incorrect {
+            border-color: red !important;
+            background-color: #f9d6d5;
+        }
+
+        .blank:empty {
+            background-color: #f1f8ff;
+        }
+
+        .blank:empty:hover {
+            background-color: #eaf2f8;
+        }
+
+        /* Buttons */
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #41729f; /* Midnight Blue */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #274472; /* Dark Blue */
+            transform: translateY(-2px);
+        }
+
+        #reset {
+            background-color: #e53935;
+            margin-left: 10px;
+        }
+
+        #reset:hover {
+            background-color: #d32f2f;
+        }
+
+        #showResultBtn {
+            background-color: #2196F3;
+            display: none;
+            margin-left: 10px;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #41729f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <a href="/HTML/exercitiiMain.html" class="back-button" onclick="goBack()">← Back</a>
+    <h1>Drag and Drop Sentence Exercise 4</h1>
+
+    <div id="options">
+        <div class="draggable" id="word1" draggable="true">apple</div>
+        <div class="draggable" id="word2" draggable="true">summer</div>
+        <div class="draggable" id="word3" draggable="true">delicious</div>
+        <div class="draggable" id="word4" draggable="true">picnic</div>
+        <div class="draggable" id="word5" draggable="true">snow</div>
+        <div class="draggable" id="word6" draggable="true">pasta</div>
+        <div class="draggable" id="word7" draggable="true">winter</div>
+        <div class="draggable" id="word8" draggable="true">birthday</div>
+    </div>
+
+    <div id="exercise">
+        <div class="sentence">
+            <p>I love eating <div class="blank" id="blank1"></div> for lunch.</p>
+        </div>
+        <div class="sentence">
+            <p>We are going on a <div class="blank" id="blank2"></div> this weekend.</p>
+        </div>
+        <div class="sentence">
+            <p>The weather is very <div class="blank" id="blank3"></div> today.</p>
+        </div>
+        <div class="sentence">
+            <p>My family enjoys a <div class="blank" id="blank4"></div> by the lake during the holidays.</p>
+        </div>
+        <div class="sentence">
+            <p>The <div class="blank" id="blank5"></div> makes everything so peaceful.</p>
+        </div>
+        <div class="sentence">
+            <p>I am making some <div class="blank" id="blank6"></div> for dinner tonight.</p>
+        </div>
+        <div class="sentence">
+            <p>We are planning a big <div class="blank" id="blank7"></div> party next month.</p>
+        </div>
+        <div class="sentence">
+            <p>My favorite season is <div class="blank" id="blank8"></div>.</p>
+        </div>
+    </div>
+
+    <div>
+        <button onclick="checkAnswers()">Submit</button>
+        <button id="reset" onclick="resetExercise()">Reset</button>
+        <button id="showResultBtn" onclick="showCorrectAnswers()">Show Result</button>
+        <p id="score">Your score: 0/8</p>
+    </div>
+
+    <script>
+        let score = 0;
+        let correctAnswers = {
+            blank1: "apple",
+            blank2: "picnic",
+            blank3: "delicious",
+            blank4: "picnic",
+            blank5: "snow",
+            blank6: "pasta",
+            blank7: "birthday",
+            blank8: "winter"
+        };
+
+        function shuffleWords() {
+            const words = Array.from(document.querySelectorAll('.draggable'));
+            for (let i = words.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                words[i].parentNode.insertBefore(words[j], words[i]);
+            }
+        }
+
+        window.onload = shuffleWords;
+
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                if (!item.classList.contains("locked")) {
+                    e.dataTransfer.setData('text', e.target.id);
+                }
+            });
+        });
+
+        document.querySelectorAll('.blank').forEach(blank => {
+            blank.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            blank.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const wordId = e.dataTransfer.getData('text');
+                const word = document.getElementById(wordId);
+                blank.innerHTML = word.innerHTML;
+                word.style.visibility = 'hidden';
+            });
+        });
+
+        function checkAnswers() {
+            score = 0;
+
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.classList.add("locked");
+            });
+
+            document.querySelectorAll('.blank').forEach(blank => {
+                const blankId = blank.id;
+                const word = blank.innerHTML.trim().toLowerCase();
+                const correctWord = correctAnswers[blankId].toLowerCase();
+
+                if (word === correctWord) {
+                    blank.classList.add('correct');
+                    blank.classList.remove('incorrect');
+                    score++;
+                } else {
+                    blank.classList.add('incorrect');
+                    blank.classList.remove('correct');
+                }
+            });
+
+            document.getElementById('score').style.display = 'inline';
+            document.getElementById('score').innerText = `Your score: ${score}/8`;
+
+            document.getElementById('showResultBtn').style.display = 'inline';
+        }
+
+        function resetExercise() {
+            document.querySelectorAll('.blank').forEach(blank => {
+                blank.innerHTML = '';
+                blank.classList.remove('correct', 'incorrect');
+            });
+
+            document.querySelectorAll('.draggable').forEach(word => {
+                word.style.visibility = 'visible';
+                word.classList.remove("locked");
+            });
+
+            document.getElementById('score').style.display = 'none';
+            score = 0;
+
+            shuffleWords();
+
+            document.getElementById('showResultBtn').style.display = 'none';
+        }
+
+        function showCorrectAnswers() {
+            document.querySelectorAll('.blank').forEach(blank => {
+                const blankId = blank.id;
+                blank.innerHTML = correctAnswers[blankId];
+                blank.classList.add('correct');
+                blank.classList.remove('incorrect');
+            });
+        }
+    </script>
+
+</body>
+</html>

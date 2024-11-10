@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4-Hustle Words</title>
+    <style>
+        /* Main Body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+    
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            font-size: 30px;
+            font-weight: 600;
+            color: white;
+            background-color: #274472; /* Dark Blue */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #41729f; /* Midnight Blue */
+        }
+        /* Title */
+        h1 {
+            text-align: center;
+            color: #274472; /* Dark Blue */
+            font-size: 50px;
+        }
+    
+        /* Question Box */
+        .question {
+            background-color: #c3e0e5; /* Baby Blue */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Question Text */
+        .question p {
+            font-size: 18px;
+            color: #274472; /* Dark Blue */
+            margin-bottom: 10px;
+        }
+    
+        /* Options Section */
+        .options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+    
+        /* Option Buttons */
+        .option {
+            padding: 10px;
+            border: 1px solid #41729f; /* Midnight Blue */
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+        /* Hover Effect on Options */
+        .option:hover {
+            background-color: #5885af; /* Blue Gray */
+            color: white;
+        }
+    
+        /* Colors for Correct and Incorrect Options */
+        .blue {
+            background-color: #5885af; /* Blue Gray */
+            color: white;
+        }
+    
+        .green {
+            background-color: #41729f; /* Midnight Blue */
+            color: white;
+        }
+    
+        .red {
+            background-color: #ff6b6b;
+            color: white;
+        }
+    
+        /* Submit and Next Buttons */
+      /* Adjusted Submit and Next Buttons */
+      #submit, #next, #showResults {
+        display: block;
+        margin: 10px 0 10px 0; /* Aligns to the left corner */
+        padding: 8px 16px; /* Smaller padding for a more compact button */
+        font-weight: 600; /* Increased font weight for emphasis */
+        font-size: 16px; /* Adjusted font size */
+        background-color: #274472; /* Dark Blue */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    /* Hover Effect for Submit and Next */
+    #submit:hover, #next:hover, #showResults:hover {
+        background-color: #41729f; /* Midnight Blue */
+    }
+    
+        /* Result Display */
+        #result {
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #274472; /* Dark Blue */
+        }
+    
+        /* Disabled and Hidden Classes */
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="/HTML/exercitiiMain.html" class="back-button" onclick="goBack()">← Back</a>
+<h1>English Vocabulary Exercise 4</h1>
+
+<!-- Group 1 -->
+<div id="exercise1" class="exercise">
+    <div class="question">
+        <p>1. The view from the mountain was <span>breathtaking</span>/<span>ordinary</span>/<span>foggy</span>.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(1, 'breathtaking', this)">breathtaking</button>
+            <button class="option" onclick="selectOption(1, 'ordinary', this)">ordinary</button>
+            <button class="option" onclick="selectOption(1, 'foggy', this)">foggy</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>2. The dish was <span>spicy</span>/<span>bland</span>/<span>sweet</span>, but very tasty.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(2, 'spicy', this)">spicy</button>
+            <button class="option" onclick="selectOption(2, 'bland', this)">bland</button>
+            <button class="option" onclick="selectOption(2, 'sweet', this)">sweet</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>3. The concert was <span>exciting</span>/<span>dull</span>/<span>short</span> and everyone had a great time.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(3, 'exciting', this)">exciting</button>
+            <button class="option" onclick="selectOption(3, 'dull', this)">dull</button>
+            <button class="option" onclick="selectOption(3, 'short', this)">short</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>4. The new phone model is <span>innovative</span>/<span>outdated</span>/<span>boring</span> and everyone wants it.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(4, 'innovative', this)">innovative</button>
+            <button class="option" onclick="selectOption(4, 'outdated', this)">outdated</button>
+            <button class="option" onclick="selectOption(4, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>5. The hike was <span>challenging</span>/<span>easy</span>/<span>boring</span>, but the view was worth it.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(5, 'challenging', this)">challenging</button>
+            <button class="option" onclick="selectOption(5, 'easy', this)">easy</button>
+            <button class="option" onclick="selectOption(5, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <button id="submit" onclick="calculateScore(1)">Submit</button>
+    <button id="next" onclick="nextExercise(2)">Next</button>
+</div>
+
+
+
+
+<!-- Group 2 -->
+<div id="exercise2" class="exercise hidden">
+    <div class="question">
+        <p>6. The weather was <span>sunny</span>/<span>rainy</span>/<span>cloudy</span> all day long.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(6, 'sunny', this)">sunny</button>
+            <button class="option" onclick="selectOption(6, 'rainy', this)">rainy</button>
+            <button class="option" onclick="selectOption(6, 'cloudy', this)">cloudy</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>7. The task was <span>complex</span>/<span>easy</span>/<span>boring</span>, but we finished it quickly.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(7, 'complex', this)">complex</button>
+            <button class="option" onclick="selectOption(7, 'easy', this)">easy</button>
+            <button class="option" onclick="selectOption(7, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>8. The book was <span>intriguing</span>/<span>boring</span>/<span>complicated</span> from start to finish.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(8, 'intriguing', this)">intriguing</button>
+            <button class="option" onclick="selectOption(8, 'boring', this)">boring</button>
+            <button class="option" onclick="selectOption(8, 'complicated', this)">complicated</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>9. The meal was <span>delicious</span>/<span>average</span>/<span>tasteless</span>.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(9, 'delicious', this)">delicious</button>
+            <button class="option" onclick="selectOption(9, 'average', this)">average</button>
+            <button class="option" onclick="selectOption(9, 'tasteless', this)">tasteless</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>10. The lecture was <span>informative</span>/<span>confusing</span>/<span>boring</span>.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(10, 'informative', this)">informative</button>
+            <button class="option" onclick="selectOption(10, 'confusing', this)">confusing</button>
+            <button class="option" onclick="selectOption(10, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <button id="submit" onclick="calculateScore(2)">Submit</button>
+    <button id="next" onclick="nextExercise(3)">Next</button>
+</div>
+
+
+
+
+<!-- Exercise 3, 4, 5 follow the same structure as Exercise 2 -->
+<!-- Add Exercise 3, 4, 5 below in the same pattern -->
+<!-- Group 3 -->
+<div id="exercise3" class="exercise hidden">
+    <div class="question">
+        <p>11. The performance was <span>impressive</span>/<span>average</span>/<span>boring</span>, and everyone applauded.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(11, 'impressive', this)">impressive</button>
+            <button class="option" onclick="selectOption(11, 'average', this)">average</button>
+            <button class="option" onclick="selectOption(11, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>12. The new movie was <span>thrilling</span>/<span>predictable</span>/<span>confusing</span> with many plot twists.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(12, 'thrilling', this)">thrilling</button>
+            <button class="option" onclick="selectOption(12, 'predictable', this)">predictable</button>
+            <button class="option" onclick="selectOption(12, 'confusing', this)">confusing</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>13. The cake was <span>delicious</span>/<span>dry</span>/<span>too sweet</span>, everyone loved it.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(13, 'delicious', this)">delicious</button>
+            <button class="option" onclick="selectOption(13, 'dry', this)">dry</button>
+            <button class="option" onclick="selectOption(13, 'too sweet', this)">too sweet</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>14. The painting was <span>vibrant</span>/<span>bland</span>/<span>unfinished</span> with many colors.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(14, 'vibrant', this)">vibrant</button>
+            <button class="option" onclick="selectOption(14, 'bland', this)">bland</button>
+            <button class="option" onclick="selectOption(14, 'unfinished', this)">unfinished</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>15. The park was <span>peaceful</span>/<span>crowded</span>/<span>noisy</span> in the early morning.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(15, 'peaceful', this)">peaceful</button>
+            <button class="option" onclick="selectOption(15, 'crowded', this)">crowded</button>
+            <button class="option" onclick="selectOption(15, 'noisy', this)">noisy</button>
+        </div>
+    </div>
+    <button id="submit" onclick="calculateScore(3)">Submit</button>
+    <button id="next" onclick="nextExercise(4)">Next</button>
+</div>
+
+
+
+
+<!-- Group 4 -->
+<div id="exercise4" class="exercise hidden">
+    <div class="question">
+        <p>16. The marathon was <span>tiring</span>/<span>easy</span>/<span>exhausting</span> for the participants.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(16, 'tiring', this)">tiring</button>
+            <button class="option" onclick="selectOption(16, 'easy', this)">easy</button>
+            <button class="option" onclick="selectOption(16, 'exhausting', this)">exhausting</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>17. The coffee was <span>strong</span>/<span>weak</span>/<span>bitter</span>, just the way I like it.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(17, 'strong', this)">strong</button>
+            <button class="option" onclick="selectOption(17, 'weak', this)">weak</button>
+            <button class="option" onclick="selectOption(17, 'bitter', this)">bitter</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>18. The comedy show was <span>hilarious</span>/<span>boring</span>/<span>awkward</span>, everyone was laughing.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(18, 'hilarious', this)">hilarious</button>
+            <button class="option" onclick="selectOption(18, 'boring', this)">boring</button>
+            <button class="option" onclick="selectOption(18, 'awkward', this)">awkward</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>19. The road trip was <span>long</span>/<span>exciting</span>/<span>boring</span>, but we had fun.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(19, 'long', this)">long</button>
+            <button class="option" onclick="selectOption(19, 'exciting', this)">exciting</button>
+            <button class="option" onclick="selectOption(19, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>20. The dress was <span>elegant</span>/<span>plain</span>/<span>flashy</span> at the party.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(20, 'elegant', this)">elegant</button>
+            <button class="option" onclick="selectOption(20, 'plain', this)">plain</button>
+            <button class="option" onclick="selectOption(20, 'flashy', this)">flashy</button>
+        </div>
+    </div>
+    <button id="submit" onclick="calculateScore(4)">Submit</button>
+    <button id="next" onclick="nextExercise(5)">Next</button>
+</div>
+
+
+
+<!-- Group 5 -->
+<div id="exercise5" class="exercise hidden">
+    <div class="question">
+        <p>21. The lecture was <span>engaging</span>/<span>dull</span>/<span>complicated</span> and held everyone's attention.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(21, 'engaging', this)">engaging</button>
+            <button class="option" onclick="selectOption(21, 'dull', this)">dull</button>
+            <button class="option" onclick="selectOption(21, 'complicated', this)">complicated</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>22. The ride at the amusement park was <span>scary</span>/<span>fun</span>/<span>boring</span>.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(22, 'scary', this)">scary</button>
+            <button class="option" onclick="selectOption(22, 'fun', this)">fun</button>
+            <button class="option" onclick="selectOption(22, 'boring', this)">boring</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>23. The beach was <span>crowded</span>/<span>empty</span>/<span>quiet</span> during the off-season.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(23, 'crowded', this)">crowded</button>
+            <button class="option" onclick="selectOption(23, 'empty', this)">empty</button>
+            <button class="option" onclick="selectOption(23, 'quiet', this)">quiet</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>24. The workshop was <span>useful</span>/<span>boring</span>/<span>unhelpful</span>.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(24, 'useful', this)">useful</button>
+            <button class="option" onclick="selectOption(24, 'boring', this)">boring</button>
+            <button class="option" onclick="selectOption(24, 'unhelpful', this)">unhelpful</button>
+        </div>
+    </div>
+    <div class="question">
+        <p>25. The sunset was <span>beautiful</span>/<span>ordinary</span>/<span>gray</span> that evening.</p>
+        <div class="options">
+            <button class="option" onclick="selectOption(25, 'beautiful', this)">beautiful</button>
+            <button class="option" onclick="selectOption(25, 'ordinary', this)">ordinary</button>
+            <button class="option" onclick="selectOption(25, 'gray', this)">gray</button>
+        </div>
+    </div>
+    <button id="submit" onclick="calculateScore(5)">Submit</button>
+    <button id="showResults" onclick="showFinalResults()">Show Results</button>
+</div>
+
+
+
+
+<div id="result"></div>
+
+
+<script>
+    const answers = {
+    1: 'breathtaking', 2: 'spicy', 3: 'exciting', 4: 'innovative', 5: 'challenging',
+    6: 'sunny', 7: 'complex', 8: 'intriguing', 9: 'delicious', 10: 'informative',
+    11: 'impressive', 12: 'thrilling', 13: 'delicious', 14: 'vibrant', 15: 'peaceful',
+    16: 'tiring', 17: 'strong', 18: 'hilarious', 19: 'exciting', 20: 'elegant',
+    21: 'engaging', 22: 'fun', 23: 'quiet', 24: 'useful', 25: 'beautiful'
+};
+    let exerciseScores = [0, 0, 0, 0, 0];
+    let userAnswers = {};
+    let exerciseCount = 1;
+
+    function selectOption(questionNumber, selectedAnswer, button) {
+        let buttons = button.parentElement.children;
+        for (let btn of buttons) {
+            btn.classList.remove('blue');
+        }
+        button.classList.add('blue');
+        userAnswers[questionNumber] = selectedAnswer;
+    }
+
+    function calculateScore(exerciseNumber) {
+    let score = 0;
+
+    // Calculate the score for the current exercise
+    for (let i = (exerciseNumber - 1) * 5 + 1; i <= exerciseNumber * 5; i++) {
+        const selectedAnswer = userAnswers[i];
+        const buttons = document.querySelectorAll(`#exercise${exerciseNumber} .question:nth-child(${i - (exerciseNumber - 1) * 5}) .option`);
+
+        buttons.forEach(button => {
+            // Lock the answers regardless of correct or incorrect
+            button.disabled = true;
+
+            // Highlight answers based on user's selection
+            if (selectedAnswer === answers[i]) {
+                if (button.textContent === selectedAnswer) {
+                    button.classList.add('green'); // Correct answer: green
+                }
+            } else {
+                if (button.textContent === selectedAnswer) {
+                    button.classList.add('red'); // Incorrect answer: red
+                } else if (button.textContent === answers[i]) {
+                    button.classList.add('green'); // Highlight correct answer
+                }
+            }
+        });
+
+        // Calculate score
+        if (selectedAnswer === answers[i]) {
+            score++;
+        }
+    }
+
+    // Store the score for this exercise
+    exerciseScores[exerciseNumber - 1] = score;
+
+    // Disable the Submit button after submission
+    document.getElementById(`submit${exerciseNumber}`).disabled = true;
+    document.getElementById(`submit${exerciseNumber}`).classList.add('disabled');
+}
+
+
+
+
+function nextExercise(nextExerciseNumber) {
+    // Hide the current exercise
+    document.querySelector(`#exercise${exerciseCount}`).classList.add('hidden');
+    // Show the next exercise
+    document.querySelector(`#exercise${nextExerciseNumber}`).classList.remove('hidden');
+    // Update exercise count
+    exerciseCount = nextExerciseNumber;
+
+    // Keep userAnswers intact for showing final results
+}
+
+function showFinalResults() {
+    let totalScore = 0;
+    let totalQuestions = Object.keys(answers).length;
+    let resultText = "<h2>Final Results</h2>";
+
+    // Iterate through each exercise to display stored scores and correct answers
+    for (let exerciseNumber = 1; exerciseNumber <= 5; exerciseNumber++) {
+        const exerciseScore = exerciseScores[exerciseNumber - 1];
+        resultText += `<h3>Exercise ${exerciseNumber}</h3><ul>`;
+
+        // Loop through each question in the current exercise
+        for (let i = (exerciseNumber - 1) * 5 + 1; i <= exerciseNumber * 5; i++) {
+            const correctAnswer = answers[i];
+            const userAnswer = userAnswers[i] || "No Answer";
+            const isCorrect = correctAnswer === userAnswer;
+
+            // Display the user's answer and the correct answer for each question
+            resultText += `<li>Question ${i}:<br> 
+                Your answer: <strong>${userAnswer}</strong><br>
+                Correct answer: <strong>${correctAnswer}</strong> - 
+                ${isCorrect ? '<span style="color: green;">Correct</span>' : 
+                '<span style="color: red;">Incorrect</span>'}
+            </li>`;
+        }
+
+        resultText += `</ul><p>Score for Exercise ${exerciseNumber}: ${exerciseScore} out of 5</p>`;
+        totalScore += exerciseScore;
+    }
+
+    // Display the total score across all exercises
+    resultText += `<h3>Total Score: ${totalScore} out of ${totalQuestions}</h3>`;
+
+    // Display the results on the page
+    document.getElementById('result').innerHTML = resultText;
+}
+
+
+
+</script>
+
+</body>
+</html>

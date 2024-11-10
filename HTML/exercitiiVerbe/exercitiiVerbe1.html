@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb Form Exercise</title>
+    <style>
+        /* General Body Style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c3e0e5; /* Baby Blue */
+            color: #274472; /* Dark Blue */
+            text-align: center;
+            padding: 20px;
+        }
+.back-button {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 15px 20px;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    background-color: #274472; /* Dark Blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+        .back-button:hover {
+            background-color: #41729f; /* Midnight Blue */
+        }
+        /* Title */
+        h1 {
+            text-align: center;
+            color: #274472; /* Dark Blue */
+            font-size: 50px;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            width: 60%;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* Input Fields */
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 70%;
+            border: 1px solid #5885af; /* Blue Gray */
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"].incorrect {
+            border: 2px solid #e53935; /* Red for incorrect answers */
+        }
+
+        input[type="text"].correct {
+            border: 2px solid #41729f; /* Midnight Blue for correct answers */
+        }
+
+        input[type="text"].blue {
+            border: 2px solid #5885af; /* Blue Gray for showing answers */
+        }
+
+        /* Submit Button */
+        button[type="button"] {
+            padding: 15px 30px;
+            background-color: #41729f; /* Midnight Blue */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 80%;
+            transition: background-color 0.3s;
+        }
+
+        button[type="button"]:hover {
+            background-color: #274472; /* Dark Blue on hover */
+        }
+
+        /* Restart and Show Results Buttons */
+        #restart-button, #show-results-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #restart-button {
+            background-color: #e53935; /* Red for Restart button */
+            color: white;
+        }
+
+        #restart-button:hover {
+            background-color: #d32f2f;
+        }
+
+        #show-results-button {
+            background-color: #5885af; /* Blue Gray for Show Results button */
+            color: white;
+        }
+
+        #show-results-button:hover {
+            background-color: #41729f;
+        }
+
+        #show-results-button:disabled {
+            background-color: #bbb;
+            cursor: not-allowed;
+        }
+
+        /* Score and Result Styling */
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #274472; /* Dark Blue */
+        }
+
+        .score-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #score {
+            font-size: 24px;
+            color: #41729f; /* Midnight Blue */
+        }
+    </style>
+</head>
+<body>
+    <a href="/HTML/exercitiiMain.html" class="back-button" onclick="goBack()">← Back</a>
+    <h1>Fill in the Blanks with the Correct Verb Form</h1>
+
+    <form id="exercise-form">
+        <p>1. She (go) __________ to the store yesterday.</p>
+        <input type="text" id="question1" placeholder="Verb form">
+
+        <p>2. They (play) __________ football every weekend.</p>
+        <input type="text" id="question2" placeholder="Verb form">
+
+        <p>3. I (eat) __________ dinner right now.</p>
+        <input type="text" id="question3" placeholder="Verb form">
+
+        <p>4. We (not/see) __________ him since last week.</p>
+        <input type="text" id="question4" placeholder="Verb form">
+
+        <p>5. He (finish) __________ his homework before the meeting.</p>
+        <input type="text" id="question5" placeholder="Verb form">
+
+        <p>6. She (be) __________ very tired yesterday.</p>
+        <input type="text" id="question6" placeholder="Verb form">
+
+        <p>7. They (have) __________ lunch when we arrived.</p>
+        <input type="text" id="question7" placeholder="Verb form">
+
+        <p>8. We (not/like) __________ that movie.</p>
+        <input type="text" id="question8" placeholder="Verb form">
+
+        <p>9. I (study) __________ English every day.</p>
+        <input type="text" id="question9" placeholder="Verb form">
+
+        <p>10. He (be) __________ to the doctor twice this week.</p>
+        <input type="text" id="question10" placeholder="Verb form">
+
+        <!-- Submit button now directly under the last question with larger size -->
+        <button type="button" onclick="submitAnswers()">Submit</button>
+    </form>
+
+    <div class="score-container">
+        <div id="result">
+            <h2>Your Score: <span id="score">0</span>/10</h2>
+        </div>
+        <button id="restart-button" onclick="restartQuiz()">Restart</button>
+        <button id="show-results-button" onclick="showResults()" disabled>Show Results</button>
+    </div>
+
+    <script>
+        function submitAnswers() {
+            var score = 0;
+            var answers = [
+                {id: "question1", correctAnswer: "went"},
+                {id: "question2", correctAnswer: "play"},
+                {id: "question3", correctAnswer: "am eating"},
+                {id: "question4", correctAnswer: "have not seen"},
+                {id: "question5", correctAnswer: "finished"},
+                {id: "question6", correctAnswer: "was"},
+                {id: "question7", correctAnswer: "were having"},
+                {id: "question8", correctAnswer: "like"},
+                {id: "question9", correctAnswer: "study"},
+                {id: "question10", correctAnswer: "been"}
+            ];
+
+            answers.forEach(function(item) {
+                var userAnswer = document.getElementById(item.id).value.toLowerCase().trim();
+                var inputField = document.getElementById(item.id);
+
+                if (userAnswer === item.correctAnswer) {
+                    score++;
+                    inputField.classList.remove("incorrect");
+                    inputField.classList.add("correct");
+                } else {
+                    inputField.classList.add("incorrect");
+                }
+
+                inputField.disabled = true;
+            });
+
+            document.getElementById("show-results-button").disabled = false;
+            document.getElementById("score").textContent = score;
+        }
+
+        function showResults() {
+            var answers = [
+                {id: "question1", correctAnswer: "went"},
+                {id: "question2", correctAnswer: "play"},
+                {id: "question3", correctAnswer: "am eating"},
+                {id: "question4", correctAnswer: "have not seen"},
+                {id: "question5", correctAnswer: "finished"},
+                {id: "question6", correctAnswer: "was"},
+                {id: "question7", correctAnswer: "were having"},
+                {id: "question8", correctAnswer: "like"},
+                {id: "question9", correctAnswer: "study"},
+                {id: "question10", correctAnswer: "been"}
+            ];
+
+            answers.forEach(function(item) {
+                var inputField = document.getElementById(item.id);
+                inputField.value = item.correctAnswer;
+                inputField.disabled = true;
+                inputField.classList.add("blue");
+            });
+        }
+
+        function restartQuiz() {
+            var inputs = document.querySelectorAll("input[type='text']");
+            inputs.forEach(function(input) {
+                input.value = "";
+                input.classList.remove("incorrect", "correct", "blue");
+                input.disabled = false;
+            });
+
+            document.getElementById("score").textContent = "0";
+            document.getElementById("show-results-button").disabled = true;
+        }
+    </script>
+
+</body>
+</html>

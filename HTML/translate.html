@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Sentence Exercise 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .draggable {
+            width: 100px;
+            padding: 10px;
+            background-color: lightblue;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .sentence {
+            font-size: 16px;
+            position: relative;
+            margin-bottom: 10px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .blank {
+            width: 80%;
+            height: 30px;
+            margin-top: 10px;
+            border: 2px dashed #ccc;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 30px;
+            transition: border-color 0.3s;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #score {
+            margin-left: 20px;
+            font-size: 18px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #reset {
+            margin-top: 20px;
+        }
+
+        .correct {
+            border-color: green !important;
+        }
+
+        .incorrect {
+            border-color: red !important;
+        }
+
+        #showResultBtn {
+            margin-left: 20px;
+            background-color: #2196F3;
+            display: none; /* Initially hidden */
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Drag and Drop Sentence Exercise 1</h1>
+
+    <div id="options">
+        <div class="draggable" id="word1" draggable="true">leader</div>
+        <div class="draggable" id="word2" draggable="true">concert</div>
+        <div class="draggable" id="word3" draggable="true">pancakes</div>
+        <div class="draggable" id="word4" draggable="true">competitive</div>
+        <div class="draggable" id="word5" draggable="true">resources</div>
+        <div class="draggable" id="word6" draggable="true">clear</div>
+        <div class="draggable" id="word7" draggable="true">party</div>
+        <div class="draggable" id="word8" draggable="true">family</div>
+    </div>
+
+    <div id="exercise">
+        <div class="sentence">
+            <p>She is the <div class="blank" id="blank1"></div> of our team.</p>
+        </div>
+        <div class="sentence">
+            <p>They are going to the <div class="blank" id="blank2"></div> this weekend.</p>
+        </div>
+        <div class="sentence">
+            <p>I like to eat <div class="blank" id="blank3"></div> for breakfast.</p>
+        </div>
+        <div class="sentence">
+            <p>He is always <div class="blank" id="blank4"></div> when he plays soccer.</p>
+        </div>
+        <div class="sentence">
+            <p>We need more <div class="blank" id="blank5"></div> to finish the project.</p>
+        </div>
+        <div class="sentence">
+            <p>The sky is very <div class="blank" id="blank6"></div> today.</p>
+        </div>
+        <div class="sentence">
+            <p>They are having a <div class="blank" id="blank7"></div> tonight at their house.</p>
+        </div>
+        <div class="sentence">
+            <p>My <div class="blank" id="blank8"></div> is the best in the world.</p>
+        </div>
+    </div>
+
+    <div>
+        <button onclick="checkAnswers()">Submit</button>
+        <button id="reset" onclick="resetExercise()">Reset</button>
+        <button id="showResultBtn" onclick="showCorrectAnswers()">Show Result</button>
+        <p id="score">Your score: 0/8</p>
+    </div>
+
+    <script>
+        let score = 0;
+        let correctAnswers = {
+            blank1: "leader",
+            blank2: "concert",
+            blank3: "pancakes",
+            blank4: "competitive",
+            blank5: "resources",
+            blank6: "clear",
+            blank7: "party",
+            blank8: "family"
+        };
+
+        // Function to shuffle the words
+        function shuffleWords() {
+            const words = Array.from(document.querySelectorAll('.draggable'));
+            for (let i = words.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                words[i].parentNode.insertBefore(words[j], words[i]);
+            }
+        }
+
+        // Call shuffleWords when page loads
+        window.onload = shuffleWords;
+
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                if (!item.classList.contains("locked")) {
+                    e.dataTransfer.setData('text', e.target.id);
+                }
+            });
+        });
+
+        document.querySelectorAll('.blank').forEach(blank => {
+            blank.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            blank.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const wordId = e.dataTransfer.getData('text');
+                const word = document.getElementById(wordId);
+                blank.innerHTML = word.innerHTML;
+                word.style.visibility = 'hidden'; // Hide word after drop
+            });
+        });
+
+        function checkAnswers() {
+            score = 0;
+
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.classList.add("locked");
+            });
+
+            document.querySelectorAll('.blank').forEach(blank => {
+                const blankId = blank.id;
+                const word = blank.innerHTML.trim().toLowerCase();
+                const correctWord = correctAnswers[blankId].toLowerCase();
+
+                if (word === correctWord) {
+                    blank.classList.add('correct');
+                    blank.classList.remove('incorrect');
+                    score++;
+                } else {
+                    blank.classList.add('incorrect');
+                    blank.classList.remove('correct');
+                }
+            });
+
+            document.getElementById('score').style.display = 'inline';
+            document.getElementById('score').innerText = `Your score: ${score}/8`;
+
+            // Enable the "Show Result" button after Submit
+            document.getElementById('showResultBtn').style.display = 'inline';
+        }
+
+        function resetExercise() {
+            document.querySelectorAll('.blank').forEach(blank => {
+                blank.innerHTML = '';
+                blank.classList.remove('correct', 'incorrect');
+            });
+
+            document.querySelectorAll('.draggable').forEach(word => {
+                word.style.visibility = 'visible';
+                word.classList.remove("locked");
+            });
+
+            document.getElementById('score').style.display = 'none';
+            score = 0;
+
+            shuffleWords();
+
+            // Hide the "Show Result" button until the user submits again
+            document.getElementById('showResultBtn').style.display = 'none';
+        }
+
+        function showCorrectAnswers() {
+            document.querySelectorAll('.blank').forEach(blank => {
+                const blankId = blank.id;
+                blank.innerHTML = correctAnswers[blankId]; // Insert the correct answer
+                blank.classList.add('correct'); // Mark it as correct
+                blank.classList.remove('incorrect');
+            });
+        }
+    </script>
+
+</body>
+</html>
